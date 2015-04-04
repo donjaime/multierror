@@ -15,6 +15,18 @@ func TestZeroErrors(t *testing.T) {
 	}
 }
 
+func TestNilness(t *testing.T) {
+	e := getNilErr()
+	if e != nil {
+		t.Error("should be nil")
+	}
+}
+
+func getNilErr() error {
+	var e MultiError
+	return e.AsErr()
+}
+
 func TestNonZeroErrors(t *testing.T) {
 	var mErr MultiError
 	mErr = append(mErr, fmt.Errorf("An error"))

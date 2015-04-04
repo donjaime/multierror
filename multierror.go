@@ -34,6 +34,14 @@ func (m MultiError) Error() string {
 	return buf.String()
 }
 
+// To work around Go's nasty nil becomes not-nil when passed as interface across function boundary.
+func (m MultiError) AsErr() error {
+	if len(m) == 0 {
+		return nil
+	}
+	return m
+}
+
 // Sugar for adding an error. Method only valid for pointers to MultiError.
 func (m *MultiError) Add(err error) {
 	*m = append(*m, err)
