@@ -8,7 +8,10 @@ import (
 func TestZeroErrors(t *testing.T) {
 	var e MultiError
 	if e != nil {
-		t.Error("An empty Errors Err() method should return nil")
+		t.Error("should be nil")
+	}
+	if e.Error() != "0 errors" {
+		t.Errorf("Expected '0 errors'. Got %s.", e.Error())
 	}
 }
 
@@ -16,11 +19,11 @@ func TestNonZeroErrors(t *testing.T) {
 	var mErr MultiError
 	mErr = append(mErr, fmt.Errorf("An error"))
 	if mErr == nil {
-		t.Error("A nonempty Errors Err() method should not return nil")
+		t.Error("A nonempty MultiError should not be nil")
 	}
 
 	if len(mErr) != 1 {
-		t.Error("The MultiError Errors field was not of length 1")
+		t.Error("The MultiError was not of length 1")
 	}
 
 	if mErr.Error() != "1 error: An error" {

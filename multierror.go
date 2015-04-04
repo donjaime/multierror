@@ -11,6 +11,10 @@ type MultiError []error
 
 // Satisfy the error built-in interface
 func (m MultiError) Error() string {
+	if len(m) == 0 {
+		return "0 errors"
+	}
+
 	var buf bytes.Buffer
 
 	if len(m) == 1 {
@@ -34,4 +38,3 @@ func (m MultiError) Error() string {
 func (m *MultiError) Add(err error) {
 	*m = append(*m, err)
 }
-
