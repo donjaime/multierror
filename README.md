@@ -27,7 +27,9 @@ import (
 func main() {
 	// Collect multiple errors together in multierror.Errors
 	var errs multierror.MultiError
+	// Using append()
 	errs = append(errs, fmt.Errorf("Error 1"))
+	// Or via an Add() convenience method on a *multierror.MultiError
 	(&errs).Add(fmt.Errorf("Error 2"))
 
 	// Output: "2 errors: Error 1; Error 2"
